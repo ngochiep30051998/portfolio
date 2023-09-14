@@ -7,4 +7,4 @@ services:
       dockerfile: docker/production/Dockerfile
     image: portfolio-prod
     ports:
-      - '3000:3000'
+      - '80:3000'
