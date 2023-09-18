@@ -24,7 +24,7 @@ export default function About() {
         <span className="italic">My favorite part of programming</span> is the
         problem-solving aspect. I <span className="underline">love</span> the
         feeling of finally figuring out a solution to a problem. My core stack
-        is{" "}
+        are{" "}
         <span className="font-medium">
           Angular, React, Next.js, Node.js, Nestjs, MySql, PostgreSql and MongoDB
         </span>
