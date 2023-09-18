@@ -3,8 +3,10 @@ import { CgWorkAlt } from "react-icons/cg";
 import { FaAngular } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
 import vnpayImg from "@/public/assets/images/vnpay.png";
-import ymacauImg from "@/public/assets/images/ymacau.jpg";
+import ymacauImg from "@/public/assets/images/ymacau.webp";
 import vnpayContractImg from "@/public/assets/images/vnpay-contract.png";
+import vnpayInvoiceImg from "@/public/assets/images/vnpay-invoice.png";
+import bidvImg from "@/public/assets/images/bidv.png";
 
 export const links = [
   {
@@ -75,13 +77,31 @@ export const projectsData = [
       "K8S",
     ],
     imageUrl: vnpayImg,
+    url:'https://vnpay.vn'
   },
   {
     title: "VNPAY eContract",
     description:
       "Website VNPAY e-Contract using Micro Front-end structure and nx workspace",
-    tags: ["Angular", "Nx Workspace", "Docker", "K8S"],
+    tags: ["Angular", "Nx Workspace", "Docker", "K8S","Micro Frontend"],
     imageUrl: vnpayContractImg,
+    url:'https://vnpaycontract.vn/app/auth'
+  },
+  {
+    title: "VNPAY eInvoice",
+    description:
+      "Website VNPAY e-Invoice using nx workspace. Admin site, Portal site, Web SDK for the VNPAY e-Invoice",
+    tags: ["Angular", "Nx Workspace", "Docker", "K8S"],
+    imageUrl: vnpayInvoiceImg,
+    url:'https://vnpayinvoice.vn/auth/login'
+  },
+  {
+    title: "Internet Banking BIDV Omni Channel",
+    description:
+      "Allows a user to conduct financial transactions via the Web platform",
+    tags: ["Angular"],
+    imageUrl: bidvImg,
+    url:'https://smartbanking.bidv.com.vn/'
   },
   {
     title: "Ymacau",
@@ -91,6 +111,7 @@ export const projectsData = [
       `,
     tags: ["Ionic", "Angular"],
     imageUrl: ymacauImg,
+    url:'https://play.google.com/store/apps/details?id=ymacau.centraltech&hl=vi&gl=US&pli=1'
   },
 ] as const;
 
