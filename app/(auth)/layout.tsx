@@ -2,22 +2,26 @@
 "use client";
 import Keycloak from 'keycloak-js';
 const keycloak = new Keycloak({
-    realm: 'porfolio',
-    url: 'http://keycloak.com.au:8080${kc_base_path}',
-    clientId: 'porfolio',
+    realm: 'portfolio',
+    url: 'http://keycloak.com.au:8080',
+    clientId: 'porfolio-backoffice',
 });
 const initKeycloak = async ()=>{
     try {
         const authenticated = await keycloak.init({
-            onLoad: 'login-required'
+            onLoad: "check-sso",
+            redirectUri: "http://localhost:3000/login",
+            checkLoginIframe: true,
         });
+        const url = keycloak.login();
+        console.log(url)
         console.log(`User is ${authenticated ? 'authenticated' : 'not authenticated'}`);
     } catch (error) {
         console.error('Failed to initialize adapter:', error);
     }
 }
 
-const AdminLayout = (props: {
+const AuthLayout = (props: {
     children: React.ReactNode;
 }) => {
     initKeycloak();
@@ -37,4 +41,4 @@ const AdminLayout = (props: {
 }
 
 
-export default AdminLayout;
+export default AuthLayout;

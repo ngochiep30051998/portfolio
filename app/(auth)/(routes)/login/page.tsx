@@ -1,7 +1,5 @@
 "use client";
 
-
-
 const LoginPage = () => {
     return <>LoginPage</>
 }

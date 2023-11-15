@@ -1,6 +1,7 @@
 "use client";
-const HomePage = ()=>{
-    return <>Home page</>
+
+const HomePage = () => {
+    return <>HomePage</>
 }
 
 
