@@ -1,23 +1,37 @@
+"use client";
+import UserService from "@/services/UserService";
+import { useEffect, useState } from "react";
 
-
-
-const AdminLayout = (props: {
+const RootLayout = (props: {
     children: React.ReactNode;
 }) => {
-    return (
-        <html lang="en" className="!scroll-smooth">
+
+    const [kcInitialized, setKcInitialized] = useState(false);
+    const [isLoading, setIsloading] = useState(false);
+    useEffect(() => {
+        const initKeycloak = async () => {
+            //other code
+            try {
+                setIsloading(true)
+                if (!kcInitialized) {
+                    console.log('initKeycloak')
+                    await UserService.initKeycloak();
+                    setKcInitialized(true);
+                }
+                setIsloading(false)
+            } catch (e) {
+                console.log(e);
+                setIsloading(false)
+            }
+        };
+        initKeycloak();
+    }, [])
+    return <html lang="en" className="!scroll-smooth">
         <body>
-            <div>
-                <header>Header</header>
-                <aside>Sidebar</aside>
-                {props.children}
-                <footer>Footer</footer>
-            </div>
+            {props.children}
         </body>
     </html>
-    )
-
 }
 
 
-export default AdminLayout;
+export default RootLayout;
