@@ -28,7 +28,7 @@ const RootLayout = (props: {
     }, [])
     return <html lang="en" className="!scroll-smooth">
         <body>
-            {props.children}
+            {isLoading ? 'loading...' : props.children}
         </body>
     </html>
 }

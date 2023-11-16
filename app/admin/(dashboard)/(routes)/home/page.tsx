@@ -7,4 +7,4 @@ const HomePage = () => {
 }
 
 
-export default isAuth(HomePage);
+export default HomePage;
