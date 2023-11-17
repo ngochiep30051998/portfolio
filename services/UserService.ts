@@ -2,9 +2,9 @@ import Keycloak from "keycloak-js";
 import { redirect } from "next/navigation";
 
 const _kc = new Keycloak({
-  realm: 'portfolio',
-  url: 'http://localhost:8080',
-  clientId: 'portfolio',
+  realm: process.env.NEXT_PUBLIC_KEYCLOAK_REALM as string,
+  url: process.env.NEXT_PUBLIC_KEYCLOAK_URL,
+  clientId: process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID as string,
 });
 
 /**
@@ -16,7 +16,7 @@ const initKeycloak = async () => {
   const authenticated = await _kc.init({
     onLoad: 'check-sso',
     pkceMethod: 'S256',
-    redirectUri: "http://localhost:3000/admin/home",
+    redirectUri: process.env.NEXT_PUBLIC_KEYCLOAK_REDIRECT_URI,
   })
   console.log('authenticated',authenticated)
   if (authenticated) {

@@ -1,7 +1,7 @@
 "use client";
 import UserService from "@/services/UserService";
 import { useEffect, useState } from "react";
-
+import "../globals.css"
 const RootLayout = (props: {
     children: React.ReactNode;
 }) => {
@@ -27,7 +27,7 @@ const RootLayout = (props: {
         initKeycloak();
     }, [])
     return <html lang="en" className="!scroll-smooth">
-        <body>
+        <body className="w-screen h-screen">
             {isLoading ? 'loading...' : props.children}
         </body>
     </html>
