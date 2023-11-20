@@ -1,6 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
-import { HomeIcon } from '@heroicons/react/20/solid'
+import React, { ReactNode, useEffect, useRef, useState } from "react";
+import { HomeIcon, UsersIcon } from '@heroicons/react/20/solid'
 
+type MenuItem = {
+    name: string;
+    url?: string;
+    icon: ReactNode,
+    childs?: MenuItem[]
+}
+export const menus: MenuItem[] = [
+    {
+        name:'Dashboard',
+        icon: <HomeIcon className="w-4 h-4" />,
+        url:'/admin/home',
+    },
+    {
+        name:'Users',
+        icon: <UsersIcon className="w-4 h-4" />,
+        url: '/admin/users',
+    }
+]
 
 const Sidebar = () => {
 
@@ -14,14 +32,14 @@ const Sidebar = () => {
                 <ul className="space-y-1.5">
                     <li>
                         <a className="flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-sm text-slate-700 rounded-lg hover:bg-gray-100 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#">
-                            <HomeIcon className="w-4 h-4"/>
+                            <HomeIcon className="w-4 h-4" />
                             Dashboard
                         </a>
                     </li>
 
                     <li className="hs-accordion" id="users-accordion">
                         <button type="button" className="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent text-sm text-slate-700 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:hs-accordion-active:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                            <svg className="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" ><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+                            <UsersIcon className="w-4 h-4" />
                             Users
 
                             <svg className="hs-accordion-active:block ms-auto hidden w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6" /></svg>
