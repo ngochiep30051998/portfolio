@@ -14,20 +14,18 @@ const DashboardLayout = (props: {
     useEffect(() => {
         setTimeout(() => setLoading(false), 1000);
     }, []);
+    useEffect(() => { import("preline") }, []);
+
     return (
         <div className="flex h-screen overflow-hidden">
             <Sidebar
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
             />
-            <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-                <header>Header</header>
+            <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72">
                 <main>
-                    <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-                        {props.children}
-                    </div>
+                    {props.children}
                 </main>
-
             </div>
         </div>
     )

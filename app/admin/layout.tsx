@@ -2,6 +2,7 @@
 import UserService from "@/services/UserService";
 import { useEffect, useState } from "react";
 import "../globals.css"
+import Script from "next/script";
 const RootLayout = (props: {
     children: React.ReactNode;
 }) => {
@@ -26,8 +27,8 @@ const RootLayout = (props: {
         };
         initKeycloak();
     }, [])
-    return <html lang="en" className="!scroll-smooth">
-        <body className="w-screen h-screen">
+    return <html lang="en" className="!scroll-smooth ">
+        <body className="w-screen h-screen bg-gray-50 dark:bg-slate-900">
             {isLoading ? 'loading...' : props.children}
         </body>
     </html>
