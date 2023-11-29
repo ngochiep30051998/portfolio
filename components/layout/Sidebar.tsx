@@ -49,6 +49,20 @@ export const menus: MenuItem[] = [
             },
 
         ]
+    },
+    {
+        name: 'Users4',
+        icon: <UsersIcon className="w-4 h-4" />,
+        url: '/admin/users4',
+        key: 'users4',
+        childs: [
+            {
+                name: 'Users 4-1',
+                icon: <UsersIcon className="w-4 h-4" />,
+                url: '/admin/users/4/1',
+                key: 'users4-1',
+            },
+        ]
     }
 ]
 
