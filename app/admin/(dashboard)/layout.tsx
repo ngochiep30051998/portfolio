@@ -7,20 +7,13 @@ import { useEffect, useState } from "react";
 const DashboardLayout = (props: {
     children: React.ReactNode;
 }) => {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-
-    const [loading, setLoading] = useState<boolean>(true);
-
     useEffect(() => {
         import("preline")
-        setTimeout(() => setLoading(false), 1000);
     }, []);
 
     return (
         <div className="flex h-screen overflow-hidden">
-            <Sidebar
-
-            />
+            <Sidebar/>
             <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72">
                 <main>
                     {props.children}

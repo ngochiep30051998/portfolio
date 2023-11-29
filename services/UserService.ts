@@ -1,5 +1,4 @@
 import Keycloak from "keycloak-js";
-import { redirect } from "next/navigation";
 
 const _kc = new Keycloak({
   realm: process.env.NEXT_PUBLIC_KEYCLOAK_REALM as string,

@@ -2,7 +2,7 @@
 import UserService from "@/services/UserService";
 import { useEffect, useState } from "react";
 import "../globals.css"
-import Script from "next/script";
+import Loading from "@/components/shared/loading";
 const RootLayout = (props: {
     children: React.ReactNode;
 }) => {
@@ -29,7 +29,7 @@ const RootLayout = (props: {
     }, [])
     return <html lang="en" className="!scroll-smooth ">
         <body className="w-screen h-screen bg-gray-50 dark:bg-slate-900">
-            {isLoading ? 'loading...' : props.children}
+            {isLoading ? <Loading/> : props.children}
         </body>
     </html>
 }
