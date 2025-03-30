@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import "../globals.css"
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useSupabase } from '@/lib/supabase/client';
 
 export default function AdminLayout({
   children,
@@ -12,35 +12,28 @@ export default function AdminLayout({
   const router = useRouter();
   const pathname = usePathname();
   const isLoginPage = pathname === '/admin/login';
-  const supabase = createClientComponentClient();
+  const { supabase, user, loading } = useSupabase();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session && !isLoginPage) {
-        router.push('/admin/login');
-        return;
-      }
+    if (loading) return;
 
-      if (session && isLoginPage) {
-        router.push('/admin/dashboard');
-        return;
-      }
-    };
+    if (!user && !isLoginPage) {
+      router.push('/admin/login');
+      return;
+    }
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_OUT') {
-        router.push('/admin/login');
-      }
-    });
+    if (user && isLoginPage) {
+      router.push('/admin/dashboard');
+    }
+  }, [user, loading, isLoginPage, router]);
 
-    checkAuth();
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [pathname, router, isLoginPage, supabase]);
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
 
   if (isLoginPage) {
     return <>{children}</>;
@@ -61,6 +54,7 @@ export default function AdminLayout({
                 onClick={async () => {
                   try {
                     await supabase.auth.signOut();
+                    router.push('/admin/login');
                   } catch (error) {
                     console.error('Logout failed:', error);
                   }

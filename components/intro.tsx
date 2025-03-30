@@ -9,8 +9,13 @@ import { HiDownload } from "react-icons/hi";
 import { FaGithubSquare } from "react-icons/fa";
 import { useSectionInView } from "@/lib/hooks";
 import { useActiveSectionContext } from "@/context/active-section-context";
+import type { LandingConfig } from "@/lib/config/landing";
 
-export default function Intro() {
+interface IntroProps {
+  config: LandingConfig['intro'];
+}
+
+export default function Intro({ config }: IntroProps) {
   const { ref } = useSectionInView("Home", 0.5);
   const { setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
 
@@ -31,8 +36,8 @@ export default function Intro() {
             }}
           >
             <Image
-              src="/assets/images/avatar.jpg"
-              alt="Hiep Nguyen Ngoc portrait"
+              src={config.image}
+              alt={config.name}
               width="192"
               height="192"
               quality="95"
@@ -62,13 +67,17 @@ export default function Intro() {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <span className="font-bold">Hello, I'm Hiệp.</span> I'm a{" "}
-        <span className="font-bold">Software Engineer</span> with{" "}
-        <span className="font-bold">over 5 years</span> of experience in Web
+        <span className="font-bold">Hello, I'm {config.name}.</span> I'm a{" "}
+        <span className="font-bold">{config.title}</span> with{" "}
+        <span className="font-bold">{Math.floor((new Date().getTime() - new Date('2018-07-01').getTime()) / (1000 * 60 * 60 * 24 * 365))}+ years</span> of experience in Web
         Development. I enjoy building{" "}
         <span className="italic">sites & apps</span>. My focus are{" "}
         <span className="underline">Angular/React (Next.js)</span>.
       </motion.h1>
+
+      <p className="mb-28 px-4 text-lg sm:text-xl">
+        {config.description}
+      </p>
 
       <motion.div
         className="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 text-lg font-medium"

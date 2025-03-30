@@ -1,22 +1,24 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
+import Header from "@/components/header";
+import "./globals.css";
+import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'Admin Dashboard',
-  description: 'Admin dashboard for portfolio management',
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata = {
+  title: "Hiep Nguyen Ngoc | Personal Portfolio",
+  description: "Hiep Nguyen Ngoc is a full-stack developer with 5 years of experience.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+// app/layout.tsx
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="!scroll-smooth">
+      <body
+        className={`${inter.className} bg-gray-50 text-gray-950 dark:bg-gray-900 dark:text-gray-50 dark:text-opacity-90`}
+      >
+        {children}
+      </body>
     </html>
   );
-} 
+}

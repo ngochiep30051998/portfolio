@@ -6,9 +6,13 @@ import { motion } from "framer-motion";
 import { useSectionInView } from "@/lib/hooks";
 import { sendEmail } from "@/actions/sendEmail";
 import SubmitBtn from "./submit-btn";
-import toast from "react-hot-toast";
+import type { LandingConfig } from "@/lib/config/landing";
 
-export default function Contact() {
+interface ContactProps {
+  config: LandingConfig['contact'];
+}
+
+export default function Contact({ config }: ContactProps) {
   const { ref } = useSectionInView("Contact");
 
   return (
@@ -18,38 +22,26 @@ export default function Contact() {
       className="mb-20 sm:mb-28 w-[min(100%,38rem)] text-center"
       initial={{
         opacity: 0,
+        y: 100,
       }}
       whileInView={{
         opacity: 1,
+        y: 0,
       }}
       transition={{
-        duration: 1,
-      }}
-      viewport={{
-        once: true,
+        delay: 0.175,
       }}
     >
       <SectionHeading>Contact me</SectionHeading>
 
       <p className="text-gray-700 -mt-6 dark:text-white/80">
-        Please contact me directly at{" "}
-        <a className="underline" href="mailto:ngochiep30051998@gmail.com">
-          ngochiep30051998@gmail.com
-        </a>{" "}
-        or through this form.
+        {config.description}
       </p>
 
       <form
         className="mt-10 flex flex-col dark:text-black"
         action={async (formData) => {
-          const { data, error } = await sendEmail(formData);
-
-          if (error) {
-            toast.error(error);
-            return;
-          }
-
-          toast.success("Email sent successfully!");
+          await sendEmail(formData);
         }}
       >
         <input
@@ -69,6 +61,36 @@ export default function Contact() {
         />
         <SubmitBtn />
       </form>
+
+      <div className="mt-8 flex justify-center gap-4">
+        {config.social.github && (
+          <a
+            className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+            href={config.social.github}
+            target="_blank"
+          >
+            GitHub
+          </a>
+        )}
+        {config.social.linkedin && (
+          <a
+            className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+            href={config.social.linkedin}
+            target="_blank"
+          >
+            LinkedIn
+          </a>
+        )}
+        {config.social.twitter && (
+          <a
+            className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+            href={config.social.twitter}
+            target="_blank"
+          >
+            Twitter
+          </a>
+        )}
+      </div>
     </motion.section>
   );
 }

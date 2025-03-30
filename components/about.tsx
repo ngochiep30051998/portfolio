@@ -4,8 +4,13 @@ import React from "react";
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { useSectionInView } from "@/lib/hooks";
+import type { LandingConfig } from "@/lib/config/landing";
 
-export default function About() {
+interface AboutProps {
+  config: LandingConfig['about'];
+}
+
+export default function About({ config }: AboutProps) {
   const { ref } = useSectionInView("About");
 
   return (
@@ -19,19 +24,7 @@ export default function About() {
     >
       <SectionHeading>About me</SectionHeading>
       <p className="mb-3">
-        I graduated from <span className="font-medium">Military Technical Academy</span> in 2020 with a bachelor’s degree in<span className="font-medium"> Information
-        Technology.</span> I started working as an intern developer when I was a third-year student.{" "}
-        <span className="italic">My favorite part of programming</span> is the
-        problem-solving aspect. I <span className="underline">love</span> the
-        feeling of finally figuring out a solution to a problem. My core stack
-        are{" "}
-        <span className="font-medium">
-          Angular, React, Next.js, Node.js, Nestjs, MySql, PostgreSql and MongoDB
-        </span>
-        . I am also familiar with TypeScript, TypeORM and Prisma. I am always looking to
-        learn new technologies. I am currently looking for a{" "}
-        <span className="font-medium">full-time position</span> as a software
-        developer.
+        {config.description}
       </p>
 
       <p>

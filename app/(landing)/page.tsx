@@ -5,17 +5,19 @@ import Intro from "@/components/intro";
 import Projects from "@/components/projects";
 import SectionDivider from "@/components/section-divider";
 import Skills from "@/components/skills";
+import { getLandingConfig } from "@/services/api/landing.server";
 
-export default function Home() {
+export default async function Home() {
+  const config = await getLandingConfig();
   return (
     <main className="flex flex-col items-center px-4">
-      <Intro />
+      <Intro config={config.intro} />
       <SectionDivider />
-      <About />
-      <Projects />
-      <Skills />
-      <Experience />
-      <Contact />
+      <About config={config.about} />
+      <Projects config={config.projects} />
+      <Skills config={config.skills} />
+      <Experience config={config.experience} />
+      <Contact config={config.contact} />
     </main>
   );
 }

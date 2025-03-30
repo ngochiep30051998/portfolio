@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { authService } from '@/services/api/auth.service';
+import { createClient } from '@/lib/supabase/client';
 import toast from 'react-hot-toast';
 
 export default function AdminLogin() {
@@ -18,7 +18,15 @@ export default function AdminLogin() {
     setIsLoading(true);
 
     try {
-      const response = await authService.login(formData);
+      const supabase = createClient();
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (error) throw error;
+
       toast.success('Đăng nhập thành công!');
       router.push('/admin/dashboard');
     } catch (error: any) {
