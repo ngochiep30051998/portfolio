@@ -1,12 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { useSectionInView } from "@/lib/hooks";
-import { sendEmail } from "@/actions/sendEmail";
 import SubmitBtn from "./submit-btn";
 import type { LandingConfig } from "@/lib/config/landing";
+import { emailService } from "@/services/api/email.service";
+import toast from "react-hot-toast";
 
 interface ContactProps {
   config: LandingConfig['contact'];
@@ -14,6 +15,7 @@ interface ContactProps {
 
 export default function Contact({ config }: ContactProps) {
   const { ref } = useSectionInView("Contact");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
     <motion.section
@@ -41,7 +43,25 @@ export default function Contact({ config }: ContactProps) {
       <form
         className="mt-10 flex flex-col dark:text-black"
         action={async (formData) => {
-          await sendEmail(formData);
+          setIsSubmitting(true);
+          try {
+            const result = await emailService.sendEmail({
+              senderEmail: formData.get('senderEmail') as string,
+              message: formData.get('message') as string,
+            });
+
+            if (result.success) {
+              toast.success('Message sent successfully!');
+              formData.set('senderEmail', '');
+              formData.set('message', '');
+            } else {
+              toast.error('Failed to send message. Please try again.');
+            }
+          } catch (error) {
+            toast.error('An error occurred. Please try again.');
+          } finally {
+            setIsSubmitting(false);
+          }
         }}
       >
         <input
@@ -59,38 +79,8 @@ export default function Contact({ config }: ContactProps) {
           required
           maxLength={5000}
         />
-        <SubmitBtn />
+        <SubmitBtn isSubmitting={isSubmitting} />
       </form>
-
-      <div className="mt-8 flex justify-center gap-4">
-        {config.social.github && (
-          <a
-            className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-            href={config.social.github}
-            target="_blank"
-          >
-            GitHub
-          </a>
-        )}
-        {config.social.linkedin && (
-          <a
-            className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-            href={config.social.linkedin}
-            target="_blank"
-          >
-            LinkedIn
-          </a>
-        )}
-        {config.social.twitter && (
-          <a
-            className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-            href={config.social.twitter}
-            target="_blank"
-          >
-            Twitter
-          </a>
-        )}
-      </div>
     </motion.section>
   );
 }
