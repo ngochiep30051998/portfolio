@@ -12,7 +12,9 @@ export async function POST(req: NextRequest) {
 
     // Cấu hình transporter cho Nodemailer
     const transporter = nodemailer.createTransport({
-      service: 'gmail', // Hoặc SMTP khác
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.GMAIL_USERNAME, // Email của bạn (từ biến môi trường)
         pass: process.env.GMAIL_PASSWORD, // App Password (không phải mật khẩu tài khoản)
