@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { authService } from '../../../services/api/auth.service';
-import { User } from '../../../lib/supabase';
+import { User } from '@supabase/supabase-js';
 
 export default function AdminDashboard() {
   const [user, setUser] = useState<User | null>(null);
