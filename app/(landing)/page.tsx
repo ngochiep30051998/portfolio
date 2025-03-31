@@ -11,7 +11,7 @@ export default async function Home() {
   const config = await getLandingConfig();
   return (
     <main className="flex flex-col items-center px-4">
-      <Intro config={config.intro} />
+      <Intro config={config.intro} contact={config.contact} />
       <SectionDivider />
       <About config={config.about} />
       <Projects config={config.projects} />
