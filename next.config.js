@@ -7,6 +7,7 @@ const nextConfig = {
         hostname: "images.unsplash.com",
       },
     ],
+    domains: ['placehold.co',"bukzdjainbkqkqqfnbnz.supabase.co"],
   },
   experimental: {
     serverActions: true,

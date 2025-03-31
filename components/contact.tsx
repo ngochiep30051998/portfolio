@@ -1,15 +1,21 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
 import { useSectionInView } from "@/lib/hooks";
-import { sendEmail } from "@/actions/sendEmail";
 import SubmitBtn from "./submit-btn";
+import type { LandingConfig } from "@/lib/config/landing";
+import { emailService } from "@/services/api/email.service";
 import toast from "react-hot-toast";
 
-export default function Contact() {
+interface ContactProps {
+  config: LandingConfig['contact'];
+}
+
+export default function Contact({ config }: ContactProps) {
   const { ref } = useSectionInView("Contact");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
     <motion.section
@@ -18,38 +24,44 @@ export default function Contact() {
       className="mb-20 sm:mb-28 w-[min(100%,38rem)] text-center"
       initial={{
         opacity: 0,
+        y: 100,
       }}
       whileInView={{
         opacity: 1,
+        y: 0,
       }}
       transition={{
-        duration: 1,
-      }}
-      viewport={{
-        once: true,
+        delay: 0.175,
       }}
     >
       <SectionHeading>Contact me</SectionHeading>
 
       <p className="text-gray-700 -mt-6 dark:text-white/80">
-        Please contact me directly at{" "}
-        <a className="underline" href="mailto:ngochiep30051998@gmail.com">
-          ngochiep30051998@gmail.com
-        </a>{" "}
-        or through this form.
+        {config.description}
       </p>
 
       <form
         className="mt-10 flex flex-col dark:text-black"
         action={async (formData) => {
-          const { data, error } = await sendEmail(formData);
+          setIsSubmitting(true);
+          try {
+            const result = await emailService.sendEmail({
+              senderEmail: formData.get('senderEmail') as string,
+              message: formData.get('message') as string,
+            });
 
-          if (error) {
-            toast.error(error);
-            return;
+            if (result.success) {
+              toast.success('Message sent successfully!');
+              formData.set('senderEmail', '');
+              formData.set('message', '');
+            } else {
+              toast.error('Failed to send message. Please try again.');
+            }
+          } catch (error) {
+            toast.error('An error occurred. Please try again.');
+          } finally {
+            setIsSubmitting(false);
           }
-
-          toast.success("Email sent successfully!");
         }}
       >
         <input
@@ -67,7 +79,7 @@ export default function Contact() {
           required
           maxLength={5000}
         />
-        <SubmitBtn />
+        <SubmitBtn isSubmitting={isSubmitting} />
       </form>
     </motion.section>
   );
