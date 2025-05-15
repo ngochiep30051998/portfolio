@@ -34,13 +34,6 @@ export default function LandingLayout({
           <ThemeSwitch />
         </ActiveSectionContextProvider>
       </ThemeContextProvider>
-      {process.env.NODE_ENV === 'production' && (
-        <script
-          defer
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon='{"token": "a20ccdbacbbd4ceda85f899cea5035a3"}'
-        />
-      )}
     </div>
   );
 }
