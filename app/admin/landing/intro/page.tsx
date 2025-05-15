@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import { landingAdminService } from '@/services/api/landing-admin.service';
 import type { LandingConfig } from '@/lib/config/landing';

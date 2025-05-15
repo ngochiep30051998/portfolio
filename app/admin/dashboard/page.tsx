@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import { authService } from '../../../services/api/auth.service';
 import { User } from '@supabase/supabase-js';
