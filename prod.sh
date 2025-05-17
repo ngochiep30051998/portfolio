@@ -1,2 +1,2 @@
 #!/bin/sh
-docker compose -f docker/production/docker-compose.yml up -d --build
+docker compose --env-file .env.local -f docker/production/docker-compose.yml up -d --build
